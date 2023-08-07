@@ -6,7 +6,32 @@
     <link href="style/style.css" rel="stylesheet" />
 </head>
 <body>
-    <canvas id="canvas" class="canvas"></canvas>
+    <div class="main-container">
+        <canvas id="canvas" class="canvas"></canvas>
+        <div class="control-block">
+            <div class="control-block__buttons-panel">
+                <span class="control-block__text">Бросить спички:</span>
+                <div class="control-block__buttons-panel__buttons-wrapper">
+                    <button class="control-block__buttons-panel__button" value="1">1</button>
+                    <button class="control-block__buttons-panel__button" value="100">100</button>
+                    <button class="control-block__buttons-panel__button" value="10000">10k</button>
+                    <button class="control-block__buttons-panel__button" value="1000000">1m</button>
+                    <button class="control-block__buttons-panel__button" value="100000000">100m</button>
+                </div>
+            </div>
+            <div class="control-block__info">
+                <span class="control-block__info__main">
+                    Всего спичек: <span id="controlBlockInfoMain">0</span>
+                </span>
+                <span class="control-block__info__sub">
+                    Попали на линию: <span id="controlBlockInfoSub">0</span>
+                </span>
+                <span class="control-block__info__main">
+                    Отношение: <span id="controlBlockInfoResult">0</span>
+                </span>
+            </div>
+        </div>
+    </div>
     <script src="script/script.js"></script>
 </body>
 </html>

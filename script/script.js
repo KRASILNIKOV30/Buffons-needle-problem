@@ -1,104 +1,123 @@
-const canvas = document.getElementById('canvas')
-const canvasContext = canvas.getContext('2d')
+window.addEventListener('load', () => {
+    const canvasWidth = window.screen.width
+    const canvasHeight = 400
 
-const GAME = {
-    width: 600,
-    height: 800,
-    background: '#ffeedd',
-    matchesOnLineNumber: 0,
-    matchesNumber: 0
-}
+    const canvas = document.getElementById('canvas')
+    const canvasContext = canvas.getContext('2d')
+    const buttons = document.querySelectorAll('.control-block__buttons-panel__button')
+    const controlBlockInfoMain = document.getElementById('controlBlockInfoMain')
+    const controlBlockInfoSub = document.getElementById('controlBlockInfoSub')
+    const controlBlockInfoResult = document.getElementById('controlBlockInfoResult')
 
-canvas.width = GAME.width
-canvas.height = GAME.height
+    canvas.width = canvasWidth
+    canvas.height = canvasHeight
 
-const LINE = {
-    number: 5,
-    color: '#1a1a1a',
-    height: 1
-}
-
-const MATCH = {
-    length: GAME.height / (LINE.number + 1) / 2,
-    mainColor: '#7c5735',
-    accentColor: '#a90a0a',
-    width: 1,
-    radius: 3
-}
-
-const drawBackground = () => {
-    canvasContext.fillStyle = GAME.background
-    canvasContext.fillRect(0, 0, GAME.width, GAME.height)
-}
-
-const drawLines = () => {
-    canvasContext.fillStyle = LINE.color
-    for (let i = 1; i <= LINE.number; i++) {
-        canvasContext.fillRect(0, GAME.height / (LINE.number + 1) * i, GAME.width, LINE.height)
+    const GAME = {
+        width: canvasWidth,
+        height: canvasHeight,
+        background: '#ffeedd',
+        matchesOnLineNumber: 0,
+        matchesNumber: 0
     }
-}
 
-const throwMatch = () => {
-    GAME.matchesNumber++
-    const startPoint = getRandomPoint()
-    const endPoint = getEndPoint(startPoint)
-    //drawMatch(startPoint, endPoint)
-    if (isMatchOnLine(startPoint.y, endPoint.y)) {
-        GAME.matchesOnLineNumber++
+    const LINE = {
+        number: 4,
+        color: '#1a1a1a',
+        height: 1
     }
-}
 
-const getEndPoint = (startPoint) => {
-    const angle = getRandomAngle()
-    const x = startPoint.x + MATCH.length * Math.cos(angle)
-    const y = startPoint.y + MATCH.length * Math.sin(angle)
-    return { x, y }
-}
-
-const getRandomPoint = () => {
-    return {
-        x: GAME.width * Math.random(),
-        y: GAME.height * Math.random()
+    const MATCH = {
+        length: GAME.height / (LINE.number + 1) / 2,
+        mainColor: '#7c5735',
+        accentColor: '#a90a0a',
+        width: 1,
+        radius: 3
     }
-}
 
-const getRandomAngle = () => {
-    return 2 * Math.PI * Math.random()
-}
+    const drawBackground = () => {
+        canvasContext.fillStyle = GAME.background
+        canvasContext.fillRect(0, 0, GAME.width, GAME.height)
+    }
 
-const drawMatch = (start, end) => {
-    canvasContext.strokeStyle = MATCH.mainColor
-    canvasContext.fillStyle = MATCH.accentColor
-    canvasContext.strokeWidth = MATCH.width
-    canvasContext.beginPath()
-    canvasContext.arc(end.x, end.y, MATCH.radius, 0, 2 * Math.PI)
-    canvasContext.moveTo(start.x, start.y)
-    canvasContext.lineTo(end.x, end.y)
-    canvasContext.closePath()
-    canvasContext.stroke()
-    canvasContext.fill()
-}
+    const drawLines = () => {
+        canvasContext.fillStyle = LINE.color
+        for (let i = 1; i <= LINE.number; i++) {
+            canvasContext.fillRect(0, GAME.height / (LINE.number + 1) * i, GAME.width, LINE.height)
+        }
+    }
 
-const isMatchOnLine = (startY, endY) => {
-    return getSectionNumber(startY) !== getSectionNumber(endY)
-}
+    const throwMatches = (number) => {
+        for(let i = 0; i < number; i++) {
+            GAME.matchesNumber++
+            const startPoint = getRandomPoint()
+            const endPoint = getEndPoint(startPoint)
+            drawMatch(startPoint, endPoint)
+            if (isMatchOnLine(startPoint.y, endPoint.y)) {
+                GAME.matchesOnLineNumber++
+            }
+        }
+    }
 
-const getSectionNumber = (y) => {
-    return Math.floor(y / (GAME.height / (LINE.number + 1)))
-}
+    const getEndPoint = (startPoint) => {
+        const angle = getRandomAngle()
+        const x = startPoint.x + MATCH.length * Math.cos(angle)
+        const y = startPoint.y + MATCH.length * Math.sin(angle)
+        return { x, y }
+    }
 
-const drawFrame = () => {
-    drawBackground()
-    drawLines()
-    throwMatch()
-}
+    const getRandomPoint = () => {
+        return {
+            x: GAME.width * Math.random(),
+            y: GAME.height * Math.random()
+        }
+    }
 
-drawFrame()
+    const getRandomAngle = () => {
+        return 2 * Math.PI * Math.random()
+    }
 
-for (let i = 0; i < 1000; i++) {
-    throwMatch()
-}
+    const drawMatch = (start, end) => {
+        canvasContext.strokeStyle = MATCH.mainColor
+        canvasContext.fillStyle = MATCH.accentColor
+        canvasContext.strokeWidth = MATCH.width
+        canvasContext.beginPath()
+        canvasContext.arc(end.x, end.y, MATCH.radius, 0, 2 * Math.PI)
+        canvasContext.moveTo(start.x, start.y)
+        canvasContext.lineTo(end.x, end.y)
+        canvasContext.closePath()
+        canvasContext.stroke()
+        canvasContext.fill()
+    }
 
-console.log(GAME.matchesNumber)
-console.log(GAME.matchesOnLineNumber)
-console.log(GAME.matchesNumber / GAME.matchesOnLineNumber)
+    const isMatchOnLine = (startY, endY) => {
+        return getSectionNumber(startY) !== getSectionNumber(endY)
+    }
+
+    const getSectionNumber = (y) => {
+        return Math.floor(y / (GAME.height / (LINE.number + 1)))
+    }
+
+    const initButtons = () => {
+        buttons.forEach(button => {
+            button.addEventListener('click', () => {
+                throwMatches(button.value)
+                updatePageInfo()
+            })
+        })
+    }
+
+    const updatePageInfo = () => {
+        controlBlockInfoMain.textContent = GAME.matchesNumber
+        controlBlockInfoSub.textContent = GAME.matchesOnLineNumber
+        controlBlockInfoResult.textContent = (GAME.matchesNumber / GAME.matchesOnLineNumber).toString()
+    }
+
+    const drawFrame = () => {
+        drawBackground()
+        drawLines()
+        initButtons()
+    }
+
+    drawFrame()
+}, { once: true })
+

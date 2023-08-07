@@ -4,5 +4,6 @@
   },
   "devDependencies": {
     "sass": "^1.64.2"
-  }
+  },
+  "type": "module"
 }

@@ -1,0 +1,48 @@
+body {
+  margin: 0;
+}
+
+.main-container {
+  display: flex;
+  flex-direction: column;
+  font: 500 48px 'Roboto'
+}
+
+.control-block {
+  &__text {
+    margin-bottom: 48px;
+  }
+
+  &__buttons-panel {
+    display: flex;
+    flex-direction: column;
+    padding: 64px 80px;
+
+    &__buttons-wrapper {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    &__button {
+      height: 120px;
+      width: 130px;
+      font: 700 48px 'Roboto';
+      border-radius: 18px;
+      border: none
+    }
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    padding: 48px 80px;
+
+    &__main {
+      margin-bottom: 48px
+    }
+
+    &__sub {
+      margin-bottom: 48px;
+    }
+  }
+}

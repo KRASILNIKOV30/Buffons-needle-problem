@@ -1,3 +1,42 @@
+body {
+  margin: 0;
+}
 
+.main-container {
+  display: flex;
+  flex-direction: column;
+  font: 500 48px "Roboto";
+}
+
+.control-block__text {
+  margin-bottom: 48px;
+}
+.control-block__buttons-panel {
+  display: flex;
+  flex-direction: column;
+  padding: 64px 80px;
+}
+.control-block__buttons-panel__buttons-wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+.control-block__buttons-panel__button {
+  height: 120px;
+  width: 130px;
+  font: 700 48px "Roboto";
+  border-radius: 18px;
+  border: none;
+}
+.control-block__info {
+  display: flex;
+  flex-direction: column;
+  padding: 48px 80px;
+}
+.control-block__info__main {
+  margin-bottom: 48px;
+}
+.control-block__info__sub {
+  margin-bottom: 48px;
+}
 
 /*# sourceMappingURL=style.css.map */
