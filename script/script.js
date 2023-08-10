@@ -1,6 +1,6 @@
 window.addEventListener('load', () => {
     const canvasWidth = window.screen.width
-    const canvasHeight = 400
+    const canvasHeight = 350
 
     const canvas = document.getElementById('canvas')
     const canvasContext = canvas.getContext('2d')
